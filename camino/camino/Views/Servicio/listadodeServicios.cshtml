@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Styles/Table.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Encuestas creadas</title>
+    <link href="~/Styles/Table.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="banner-area">
+        <h2 style="color:white;">Lista de servicios </h2>
+    </div>
+    @{
+        string Role = string.Empty;
+        HttpCookie reqCookies = Request.Cookies["userInfo"];
+
+    }
+    <div class="container">
+        <br />
+        <ul class="responsive-table">
+            <li class="table-header">
+                
+                <div class="col col-1" >Categoría</div>
+                <div class="col col-2" style="padding-left:15px;">Descripción</div>
+
+                @if (reqCookies != null)
+                {
+                    Role = reqCookies["Role"].ToString();
+
+                    if (Role.Equals("Administrador"))
+                    {
+                        <div class="col col-3" >Eliminar</div>
+                    }
+                }
+
+            </li>
+
+            @foreach (var trayecto in ViewBag.Trayectos)
+            {
+                <li class="table-row">
+                    
+                    <div class="col col-1" data-label="Categoría">@trayecto.Categoria</div>
+                    <div class="col col-2" data-label="Descripción" style="text-align: justify;">@trayecto.Descripcion</div>
+
+                    @if (reqCookies != null)
+                    {
+                        Role = reqCookies["Role"].ToString();
+
+                        if (Role.Equals("Administrador"))
+                        {
+                            <div class="col col-1" data-label="Eliminar">
+                                @Html.ActionLink("Eliminar", "eliminarServicio", "Servicio", new { servicioId = trayecto.ServicioId }, new { @class = "cta" })
+                            </div>
+                        }
+                    }
+                </li>
+            }
+
+        </ul>
+    </div>
+
+
+
+</body>
+</html>

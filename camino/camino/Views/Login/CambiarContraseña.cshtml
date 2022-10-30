@@ -1,0 +1,65 @@
+﻿
+<!DOCTYPE html>
+@model camino.Models.Login
+
+@{
+    ViewBag.Title = "Ingrese a su cuenta";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/Styles/logRegForm.css" />
+    <style>
+        body {
+            background: url(/Images/volcancito.jpg) rgba(20, 40, 40, 0.7);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        ::-webkit-input-placeholder {
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+
+    <div class="signupSection">
+        <div class="info">
+            <h2>Ingresa para empezar la aventura</h2>
+            <div style="padding-top:15px; padding-bottom:15px;">
+                <img src="~/Images/ElcaminoCR-removebg-preview.png" />
+            </div>
+            <p>Del atlantico al pacifico</p>
+        </div>
+        @using (Html.BeginForm("CambiarContraseña", "Login", FormMethod.Post, new { enctype = "multipart/form-data", @class = "signupForm" }))
+        {@Html.AntiForgeryToken()
+        <form>
+
+            <h2 style="font-size: 35px;">Cambiar Constraseña</h2>
+
+            <ul class="noBullet">
+                <li>
+                    @Html.TextBoxFor(model => model.ChangePassword.Password, new { @type = "password", placeholder = "Contraseña", required = "required", @class = "inputFields" })
+                    @Html.ValidationMessageFor(model => model.ChangePassword.Password, "", new { @class = "text-danger" })
+                </li>
+                <li>
+                    @Html.TextBoxFor(model => model.ChangePassword.ConfirmPassword, new { @type = "password", placeholder = "Confirmar Contraseña", required = "required", @class = "inputFields" })
+                    @Html.ValidationMessageFor(model => model.ChangePassword.Password, "", new { @class = "text-danger" })
+                </li>
+
+                <li id="center-btn" style="padding-top:20px;">
+                    <input type="submit" id="join-btn" name="join" alt="Join" value="Confirmar">
+                </li>
+            </ul>
+
+           
+
+        </form>
+    }
+    </div>
+
+</body>
+</html>

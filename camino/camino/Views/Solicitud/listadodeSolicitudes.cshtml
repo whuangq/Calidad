@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Solicitudes";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>listadodeSolicitudes</title>
+    <link href="~/Styles/Table.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="banner-area">
+        <h2 style="color:white; font-size:22px;">Listado de solicitudes de registro </h2>
+    </div>
+    <div class="container">
+        <h1> </h1>
+        <ul class="responsive-table">
+            <li class="table-header">
+                <div class="col col-1" style="text-align:left" >Nombre</div>
+                <div class="col col-2">Numero Telefónico</div>
+                <div class="col col-3">Correo electrónico</div>
+                <div class="col col-4" style="text-align:end">Enviar Código</div>
+
+
+            </li>
+            @foreach (var solicitud in ViewBag.solicitudes)
+            {
+                <li class="table-row">
+                    <div class="col col-1" data-label="Nombre">@solicitud.nombre @solicitud.apellido</div>
+                    <div class="col col-2" data-label="Numero Telefonico">@solicitud.numeroTelefonico</div>
+                    <div class="col col-3" data-label="Correo Electronico">@solicitud.email</div>
+                    <div class="col col-4" style="text-align:end" data-label="Enviar Codigo">
+                        @Html.ActionLink("Enviar", "envioCodigoSolicitud", "emailSetup", new {email = solicitud.email, nombre = solicitud.nombre
+             , apellido = solicitud.apellido, genero = solicitud.genero, edad = solicitud.edad, teléfono = solicitud.numeroTelefonico}, new { @class = "cta"})
+                             </div>
+                </li>
+            }
+            
+        </ul>
+    </div>
+   
+</body>
+</html>

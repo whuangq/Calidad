@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+
+@model camino.Models.ProveedorModel
+@{
+    ViewBag.Title = "Formulario para editar un proveedor";
+
+}
+
+<html>
+<head>
+
+    <link href="~/Styles/form.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <div class="banner-area">
+        <h2 style="color:white;">Editar Proveedor</h2>
+    </div>
+
+    @if (ViewBag.Message != null)
+    {
+        if (ViewBag.ExitoAlCrear)
+        {
+            <div class="alert-success">
+                <h3> @ViewBag.Message </h3>
+            </div>
+            <input type="button" class="cta center" align="center" onclick="location.href='/Proveedor/ListadodeProveedores';" value="Regresar" />
+        }
+        else
+        {
+            <div class="alert-danger">
+                <h3> @ViewBag.Message </h3>
+            </div>
+            <input type="button" class="cta center" align="center" onclick="location.href='/Proveedor/ListadodeProveedores';" value="Regresar" />
+        }
+    }
+    else
+    {
+        <div class="container" style="margin-top:50px;">
+            @using (Html.BeginForm("EditarProveedor", "Proveedor", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {@Html.AntiForgeryToken()
+
+            <div>
+                @Html.Hidden("proveedorId", (object)ViewBag.proveedorId)
+                <div>
+                    <label for="name">
+                        Ingrese la cedula del proveedor
+                    </label>
+                    @Html.TextBoxFor(model => model.Cedula, new { @class = "inputFields" })
+                    @Html.ValidationMessageFor(model => model.Cedula, "", new { @class = "text-danger" })
+                </div>
+                <div>
+                    <label for="name">
+                        Ingrese el nombre del proveedor
+                    </label>
+                    @Html.TextBoxFor(model => model.Nombre, new { @class = "inputFields" })
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                </div>
+                <div>
+                    <label for="name">
+                        Ingrese el teléfono del proveedor
+                    </label>
+                    @Html.TextBoxFor(model => model.Telefono, new { @class = "inputFields" })
+                    @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
+                </div>
+                <div style="text-align:center">
+                    <input type="submit" value="Confirmar" class="cta">
+                </div>
+            </div>
+            }
+        </div>
+    }
+
+</body>
+@section Scripts { @Scripts.Render("~/bundles/jqueryval") }
+</html>
+

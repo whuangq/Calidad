@@ -1,0 +1,52 @@
+﻿@{
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Styles/Table.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Encuestas creadas</title>
+    <link href="~/Styles/Table.css" rel="stylesheet" />
+</head>
+
+
+<body>
+    <div class="banner-area">
+        <h2 style="color:white;">Listado de Evaluaciones </h2>
+    </div>
+
+    <div class="container">
+        <h1> </h1>
+        <ul class="responsive-table">
+            <li class="table-header">
+                <div class="col col-1">Servicio</div>
+                <div class="col col-2">Calificación</div>
+                <div class="col col-3">Fecha</div>
+                <div class="col col-4">Comentario</div>
+                <div class="col col-4">Versión</div>
+                <div class="col col-4">Evaluar</div>
+            </li>
+            @foreach (var evaluacion in ViewBag.Evaluaciones)
+            {
+            <li class="table-row">
+                    <div class="col col-1">@evaluacion.ServicioID</div>
+                    <div class="col col-1">@evaluacion.Calificacion</div>
+                    <div class="col col-1">@evaluacion.Date</div>
+                    <div class="col col-1">@evaluacion.Comentario</div>
+                    <div class="col col-1">@evaluacion.Version</div>
+                    <div class="col col-1">
+                        @Html.ActionLink("Evaluar", "listadodePreguntasenEncuesta", "ListaPreguntas", new { encuestaId = evaluacion.EncuestaID }, new { @class = "cta" })
+                    </div>
+
+            </li>
+
+            }
+        </ul>
+    </div>
+
+
+
+</body>
+</html>

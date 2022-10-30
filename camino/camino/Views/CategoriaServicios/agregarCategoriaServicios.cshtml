@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+
+@model camino.Models.CategoriaServiciosModel
+@{
+    ViewBag.Title = "agregarCategoriaServicio";
+}
+
+<html>
+<head>
+    <h1 align="center" style="color:black; font-family:Agrozza Demo;">Agregar categoria</h1>
+</head>
+<style>
+    .inputaqu {
+        max-width: 350px;
+        background: #D3DEDC;
+        padding: 30px;
+        margin: 50px auto;
+        box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.35);
+        border-radius: 10px;
+        border: 6px solid #EFFFFD;
+    }
+
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+    }
+
+    .button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 6px 14px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+        border-radius: 6px;
+        border: none;
+        background: #6E6D70;
+        box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), inset 0px 0.5px 0.5px rgba(255, 255, 255, 0.5), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.12);
+        color: #DFDEDF;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .button-12:focus {
+        box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+        outline: 0;
+    }
+</style>
+<body>
+    @if (ViewBag.Message != null)
+    {
+        if (ViewBag.ExitoAlCrear)
+        {
+            <div class="alert-success">
+                <h3> @ViewBag.Message </h3>
+            </div>
+        }
+        else
+        {
+            <div class="alert-danger">
+                <h3> @ViewBag.Message </h3>
+            </div>
+        }
+    }
+    @using (Html.BeginForm("agregarCategoriaServicios", "CategoriaServicios", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {@Html.AntiForgeryToken()
+
+    <div class="inputaqu">
+        <div>
+            @Html.LabelFor(model => model.Categoria) @Html.TextBoxFor(model => model.Categoria, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Categoria, "", new { @class = "text-danger" })
+        </div>
+        <div class="center">
+            <input type="submit" style="color:white; margin:0px auto; display:block;" class="button" value="Agregar" />
+        </div>
+    </div>
+    
+}
+</body>
+</html>

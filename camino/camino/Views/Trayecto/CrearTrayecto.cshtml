@@ -1,0 +1,248 @@
+﻿@model camino.Models.TrayectoViewModel
+@{
+    ViewBag.Title = "Seleccione los puntos";
+    
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Styles/form.css" rel="stylesheet" />
+    <title></title>
+    <style>
+        #map {
+            height: 50%;
+        }
+
+        html, body{
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner-area" style="margin-bottom:25px;">
+        <h2 style="color:white;">Crear Trayecto</h2>
+    </div>
+
+    @section Scripts{
+        <div id="result"></div>
+
+        <div id="map"></div>
+        <script>
+
+                let map;
+                let markersArray = [];
+                let polyline = null;
+
+                $(function () {
+                    $('#test').on('click', function () {
+                        alert("hola desde ajax jquery")
+                        $.getJSON("https://maps.googleapis.com/maps/api/elevation/json?locations=39.7391536%2C-104.9847034&key=AIzaSyCo0TTCtLBIi_vDz-W1j7eeXCKVnjCmvtI", function (data) {
+                            alert(Json.stringify(data));
+
+                        });
+                    });
+                });
+
+
+
+
+                //https://maps.googleapis.com/maps/api/elevation/json?locations=39.7391536%2C-104.9847034&key=AIzaSyCo0TTCtLBIi_vDz-W1j7eeXCKVnjCmvtI
+                document.getElementById("hide-markers").addEventListener("click", hideMarkers);
+                document.getElementById("puntos").addEventListener("click", getFirstLast);
+                document.getElementById("sub").addEventListener("click", fillInfo);
+                //document.getElementById("crear").addEventListener("click", function () {
+                    //window.location = "/Home/Index";
+                    //location = " @Url.Action("LLenarFormulario", "Trayecto", new { marker = "markersArray[0]"})";
+
+                //})
+                //document.getElementById("crear").onclick = function () {
+                //    location.href = "http://localhost:52775/Trayecto/LlenarFormulario";
+                //};
+
+                function hideMarkers() {
+                    for (var i = markersArray.length - 1; i >= 0; i++) {
+                        markersArray[i].setMap(null);
+                        markersArray.pop();
+                    }
+                    polyline.setMap(null);
+                }
+
+                function getMarker(index) {
+                    return markersArray[index];
+                }
+                //function get() {
+                //    return markersArray[0].getPosition().lat() + "  ";
+                //}
+
+                function getFirstLast() {
+                    alert("Inicio :" + markersArray[0].getPosition().lat() + "  " + markersArray[0].getPosition().lng()
+                        + " Final : " + markersArray[markersArray.length - 1].getPosition().lat() + " " + markersArray[1].getPosition().lng());
+
+                    //document.getElementById("texto").value = get();
+                    document.getElementById("latInicio").value = getMarker(0).getPosition().lat();
+                    document.getElementById("lngInicio").value = getMarker(0).getPosition().lng();
+
+                    document.getElementById("latFinal").value = getMarker(markersArray.length-1).getPosition().lat();
+                    document.getElementById("lngFinal").value = getMarker(markersArray.length - 1).getPosition().lng();
+
+                    //document.getElementById("test").value = getMarker(0).getPosition().lat();
+
+                    document.getElementById("dist").value = calculateDistance(getMarker(0), getMarker(markersArray.length - 1))
+                    document.getElementById("alt").value = getAltitude();
+                }
+
+                function getAltitude() {
+
+                    const elevationService = new google.maps.ElevationService();
+                    //let elevation = elevationService.getElevationForLocations(markersArray);
+                    //return elevation;
+                    const locations = [{ lat: 27.986065, lng: 86.922623 }];
+
+                    const promise = elevationService.getElevationForLocation({ locations });
+
+                    promise
+                        .then((response) => {
+                            return ("promises")
+                        });
+
+
+                }
+
+                function fillInfo() {
+
+                    //document.getElementById("texto").value = get();
+                    document.getElementById("latInicio").value = getMarker(0).getPosition().lat();
+                    document.getElementById("lngInicio").value = getMarker(0).getPosition().lng();
+
+                    document.getElementById("latFinal").value = getMarker(markersArray.length - 1).getPosition().lat();
+                    document.getElementById("lngFinal").value = getMarker(markersArray.length - 1).getPosition().lng();
+
+                    document.getElementById("dist").value = calculateDistance(getMarker(0), getMarker(markersArray.length - 1))
+                    //document.getElementById("test").value = getMarker(0).getPosition().lat();
+                    document.getElementById("alt").value = getAltitude();
+
+                }
+
+                function getMarkers() {
+                    return this.markersArray;
+                }
+
+                function calculateDistance(mk1, mk2) {
+                    var R = 6371.0710; // Radius of the Earth in km
+                    var rlat1 = mk1.position.lat() * (Math.PI / 180); // Convert degrees to radians
+                    var rlat2 = mk2.position.lat() * (Math.PI / 180); // Convert degrees to radians
+                    var difflat = rlat2 - rlat1; // Radian difference (latitudes)
+                    var difflon = (mk2.position.lng() - mk1.position.lng()) * (Math.PI / 180); // Radian difference (longitudes)
+                    var d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat / 2) * Math.sin(difflat / 2) + Math.cos(rlat1) * Math.cos(rlat2) * Math.sin(difflon / 2) * Math.sin(difflon / 2)));
+                    return d;
+                }
+
+                function initMap() {
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        center: { lat: 9.93790062730941, lng: -84.05204417786392 },
+                        zoom: 10
+                    });
+                    // map onclick listener
+                    map.addListener('click', function (e) {
+                        //console.log(e);
+                        addMarker(e.latLng);
+                        drawPolyline();
+                    });
+                }
+
+                // define function to add marker at given lat & lng
+                function addMarker(latLng) {
+                    let marker = new google.maps.Marker({
+                        map: map,
+                        position: latLng,
+                        draggable: true
+                    });
+
+                    // add listener to redraw the polyline when markers position change
+                    marker.addListener('position_changed', function () {
+                        drawPolyline();
+                    });
+
+                    //store the marker object drawn in global array
+                    markersArray.push(marker);
+                }
+
+                // define function to draw polyline that connect markers' position
+                function drawPolyline() {
+                    let markersPositionArray = [];
+                    // obtain latlng of all markers on map
+                    markersArray.forEach(function (e) {
+                        markersPositionArray.push(e.getPosition());
+                    });
+
+                    // check if there is already polyline drawn on map
+                    // remove the polyline from map before we draw new one
+                    if (polyline !== null) {
+                        polyline.setMap(null);
+                    }
+
+                    // draw new polyline at markers' position
+                    polyline = new google.maps.Polyline({
+                        map: map,
+                        path: markersPositionArray,
+                        strokeOpacity: 0.4
+                    });
+                }
+
+        </script>
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCo0TTCtLBIi_vDz-W1j7eeXCKVnjCmvtI&callback=initMap">
+        </script>
+
+        <div class="container2 center">
+            <p1 style="text-align:center; font-size:15px;">Para crear un trayecto seleccione los puntos en el mapa y llene la información</p1>
+            @using (Html.BeginForm("LLenarFormulario", "TrayectoViewModel", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <div>
+                    <div class="infocuenta1">
+
+                        @Html.TextBoxFor(model => model.LatitudInicial, new { id = "latInicio", @placeholder = "Latitud Inicial", @class = "inputFields" })
+                    </div>
+                    <div class="infocuenta1">
+                        @Html.TextBoxFor(model => model.LongitudInicial, new { id = "lngInicio", @placeholder = "Longitud Inicial", @class = "inputFields" })
+                    </div>
+                    <div class="infocuenta1">
+                        @Html.TextBoxFor(model => model.LatitudFinal, new { id = "latFinal", @placeholder = "Latitud Final", @class = "inputFields" })
+                    </div>
+                    <div class="infocuenta1">
+                        @Html.TextBoxFor(model => model.LongitudFinal, new { id = "lngFinal", @placeholder = "Longitud Final", @class = "inputFields" })
+                    </div>
+                    <div class="infocuenta2">
+
+                        @Html.TextBoxFor(model => model.Distancia, new { id = "dist", @placeholder = "Distancia en kilometros", @class = "inputFields" })
+                    </div>
+                    <div class="infocuenta2">
+                        @Html.TextBoxFor(model => model.Trayecto.AltimetriaMin, new { id = "lowAlt", @placeholder = "Altimetría mínima", @class = "inputFields" })
+                    </div>
+                    <div class="infocuenta2">
+                        @Html.TextBoxFor(model => model.Trayecto.AltimetriaMax, new { id = "highAlt", @placeholder = "Altimetría máxima", @class = "inputFields" })
+                    </div>
+                    <div class="infocuenta2">
+                        @Html.TextBoxFor(model => model.Trayecto.Descripcion, new { id = "desc", @placeholder = "Descripción", @class = "inputFields" })
+                    </div>
+
+                </div>
+                <div class="" style="padding-top:200px;">
+                    <input type="submit" id="sub" value="Crear" class="cta center" />
+                    <input id="puntos" type="button" value="Obtener puntos" class="cta center" />
+                    <input id="hide-markers" type="button" value="Revertir" class="cta center" />
+                </div>
+            }
+
+
+            <!-- <input id="test" type="button" value="Test Altitud" />-->
+            <!-- <input id="test1" type="button" value="Test getJSON" />-->
+
+        </div>
+    }
+</body>
+    </html>

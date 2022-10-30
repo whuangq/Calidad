@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+@{
+    ViewBag.Title = "Eliminar trayecto";
+}
+<style>
+    input[type=button] {
+        background-color: #464E2E;
+        color: white;
+        cursor: pointer;
+    }
+</style>
+<html>
+<head>
+    <h1 align="center" style="color:black;">Eliminar trayecto</h1>
+
+</head>
+<style>
+</style>
+<body>
+    <center>
+        @if (ViewBag.Message != null)
+        {
+            if (ViewBag.ExitoAlCrear)
+            {
+                <div class="alert-success">
+
+                    <h3> @ViewBag.Message </h3>
+                </div>
+            }
+            else
+            {
+                <div class="alert-danger">
+                    <h3> @ViewBag.Message </h3>
+                </div>
+            }
+        }
+
+        <a href="listadodeTrayectos">
+            <input type="button" value="Regresar" />
+        </a>
+    </center>
+</body>
+</html>

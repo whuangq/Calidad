@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+
+@model camino.Models.PreguntaModel
+@{
+    ViewBag.Title = "Formulario para editar una pregunta de la encuesta";
+}
+
+<html>
+<head>
+    
+    <link href="~/Styles/Table.css" rel="stylesheet" />
+
+    <link href="~/Styles/form.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="banner-area">
+        <h2 style="color:white;">Crear pregunta</h2>
+    </div>
+
+    @if (ViewBag.Message != null)
+    {
+        if (ViewBag.ExitoAlCrear)
+        {
+            <div class="alert-success">
+                <h3> @ViewBag.Message </h3>
+            </div>
+            <input type="button" class="cta" align="center" onclick="location.href='/Evaluaciones/listadodeEvaluaciones';" value="Regresar" />
+        }
+        else
+        {
+            <div class="alert-danger">
+                <h3> @ViewBag.Message </h3>
+            </div>
+            <input type="button" class="cta" align="center" onclick="location.href='/Evaluaciones/listadodeEvaluaciones';" value="Regresar" />
+        }
+    }
+
+            <div class="container" style="margin-top:50px;">
+                @using (Html.BeginForm("crearPregunta", "Pregunta", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {@Html.AntiForgeryToken()
+                    <form>
+                        <div>
+                            <div>
+                                @Html.Hidden("encuestaId", (object)ViewBag.encuestaId)
+                                <label for="name">
+                                    Agregue la pregunta
+                                </label>
+                                @Html.TextBoxFor(model => model.texto, new { @placeholder = "Pregunta", @class = "inputFields" })
+                                @Html.ValidationMessageFor(model => model.texto, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div style="text-align:center; margin-top:15px">
+                            <input type="submit" value="Agregar" class="cta">
+                        </div>
+                    </form>
+                }
+            </div>
+</body>
+</html>

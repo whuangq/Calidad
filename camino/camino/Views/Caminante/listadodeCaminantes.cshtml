@@ -1,0 +1,42 @@
+﻿@{
+    // Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Styles/Table.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+</head>
+
+<body>
+    <div class="banner-area">
+        <h2 style="color:white;">Listado de caminantes </h2>
+    </div>
+    
+    <div class="container">
+        <h1> </h1>
+        <ul class="responsive-table">
+            <li class="table-header">
+                <div class="col col-1">Nombre</div>
+                <div class="col col-2">Numero Telefónico</div>
+                <div class="col col-3">Correo</div>
+                <div class="col col-4">Enlistar en Trayecto</div>
+
+            </li>
+            @foreach (var caminantes in ViewBag.caminantes)
+            {
+                <li class="table-row">
+                    <div class="col col-1" data-label="nombre">@caminantes.nombre @caminantes.apellido</div>
+                    <div class="col col-2" data-label="Numero Telefonico">@caminantes.numeroTelefonico</div>
+                    <div class="col col-3" data-label="Correo">@caminantes.email</div>
+                    <div class="col col-4" data-label="Enlistar">
+                        @Html.ActionLink("Enlistar", "agregarTrayecto", "Caminante", new {email = caminantes.email, nombre = caminantes.nombre
+                                       , apellido = caminantes.apellido, genero = caminantes.genero, edad = caminantes.edad, teléfono = caminantes.numeroTelefonico}, new { @class = "cta" })
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</body>
+</html>

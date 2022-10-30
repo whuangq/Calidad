@@ -1,0 +1,59 @@
+﻿@{
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Styles/Table.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Encuestas creadas</title>
+    <link href="~/Styles/Table.css" rel="stylesheet" />
+</head>
+
+
+<body>
+    <div class="banner-area">
+        <h2 style="color:white;">Listado de Evaluaciones </h2>
+    </div>
+
+    <div class="container">
+        <h1> </h1>
+        <ul class="responsive-table">
+            <li class="table-header">
+                
+                <div class="col col-3">Fecha</div>
+                <div class="col col-3">Comentario</div>
+                <div class="col col-lg-5" text-align: right >Agregar Pregunta</div>
+                <div class="col col-lg-5" text-align: right>Eliminar</div>
+                <div class="col col-lg-5" text-align: right>Editar</div>
+                <div class="col col-lg-5" text-align: right>Respuestas</div>
+            </li>
+            @foreach (var evaluacion in ViewBag.Evaluaciones)
+            {
+                <li class="table-row">
+                   
+                    <div class="col col-3"data-label="Fecha">@evaluacion.Date</div>
+                    <div class="col col-3"data-label="Comentario">@evaluacion.Comentario</div>
+                    <div class="col col-lg-5" data-label="Añadir Pregunta">
+                        @Html.ActionLink("Añadir", "crearPregunta", "Pregunta", new { encuestaId = evaluacion.EncuestaID }, new { @class = "cta" })
+                    </div>
+                    <div class="col col-lg-5"data-label="Eliminar Preguntas">
+                        @Html.ActionLink("Eliminar", "eliminarEvaluacion", "Evaluaciones", new { encuestaId = evaluacion.EncuestaID }, new { @class = "cta" })
+                    </div>
+                    <div class="col col-lg-5" data-label="Editar Preguntas">
+                        @Html.ActionLink("Editar", "seleccionarPregunta", "Pregunta", new { encuestaId = evaluacion.EncuestaID }, new { @class = "cta" })
+                    </div>
+                    <div class="col col-lg-5" data-label="Revisar preguntas">
+                        @Html.ActionLink("Revisar", "preguntasdeEncuesta", "Pregunta", new { encuestaId = evaluacion.EncuestaID }, new { @class = "cta" })
+                    </div>
+                </li>
+
+            }
+        </ul>
+        <input type="button" class="cta" onclick="location.href='/Evaluaciones/seleccionarServicio'" value="Crear Encuesta" />
+    </div>
+    
+
+</body>
+</html>

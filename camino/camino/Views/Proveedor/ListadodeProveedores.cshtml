@@ -1,0 +1,51 @@
+﻿@{
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Styles/Table.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Listado de Proveedores</title>
+    <link href="~/Styles/Table.css" rel="stylesheet" />
+</head>
+
+
+<body>
+    <div class="banner-area">
+        <h2 style="color:white;">Listado de Proveedores </h2>
+    </div>
+
+    <div class="container">
+        <h1> </h1>
+        <ul class="responsive-table">
+            <li class="table-header">
+                <div class="col col-1">Cédula</div>
+                <div class="col col-2">Nombre</div>
+                <div class="col col-3">Teléfono</div>
+                <div class="col col-4" text-align: right>Editar</div>
+                <div class="col col-2" text-align: right>Eliminar</div>
+            </li>
+            @foreach (var proveedor in ViewBag.Proveedores)
+            {
+                <li class="table-row">
+                    <div class="col col-1" data-label="Cédula">@proveedor.Cedula</div>
+                    <div class="col col-2" data-label="Nombre">@proveedor.Nombre</div>
+                    <div class="col col-3" data-label="Teléfono">@proveedor.Telefono</div>
+                    <div class="col col-4" data-label="Editar Proveedor">
+                        @Html.ActionLink("Editar", "EditarProveedor", "Proveedor", new { proveedorId = proveedor.Cedula }, new { @class = "cta" })
+                    </div>
+                    <div class="col col-2" data-label="Eliminar Proveedor">
+                        @Html.ActionLink("Eliminar", "EliminarProveedor", "Proveedor", new { proveedorId = proveedor.Cedula }, new { @class = "cta" })
+                    </div>
+                </li>
+
+            }
+        </ul>
+        <input type="button" class="cta" onclick="location.href='/Proveedor/CrearProveedor'" value="Crear Proveedor" />
+    </div>
+
+
+</body>
+</html>

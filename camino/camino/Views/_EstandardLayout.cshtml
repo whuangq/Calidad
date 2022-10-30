@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title lang="es">@ViewBag.Title - Camino de Costa Rica</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="~/Styles/NavBar.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <style>
+        .body-container {
+            /*remove the container default padding attribute*/
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+            /*increase width as per your need*/
+            max-width: 100%;
+        }
+
+        .w3-bar .w3-button {
+            padding: 16px;
+        }
+
+        .logo-image {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-top: -6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="myNavbar" style="padding:0px;">
+            <a href="~/Home/Index" class="w3-bar-item w3-button w3-wide">
+                <div>
+                    <img src="~/Images/ElcaminoCR-removebg-preview.png" width="35" height="30" border-radius="50%" />
+                    Camino de COSTA RICA
+                </div>
+
+            </a>
+            <!-- Right-sided navbar links -->
+            <div class="w3-right w3-hide-small">
+                <a href="~/Trayecto/MostrarTodosEnMapa" class="w3-bar-item w3-button">Trayectos </a>
+                <a href="~/SitiosInteres/listadodeSitios" class="w3-bar-item w3-button"> Sitios </a>
+                <a href="~/Solicitud/crearSolicitud" class="w3-bar-item w3-button"> Registrarse</a>
+                <a href="~/Login/Index" class="w3-bar-item w3-button"><i class="fa fa-user"></i> Iniciar Sesión </a>
+            </div>
+            <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+                <i class="fa fa-bars"></i>
+            </a>
+
+            <nav class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none;color:white; background: #362706" id="mySidebar">
+                <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Cerrar ×</a>
+                <a href="~/Trayecto/MostrarTodosEnMapa" onclick="w3_close()" class="w3-bar-item w3-button">Trayectos</a>
+                <a href="~/SitiosInteres/listadodeSitios" onclick="w3_close()" class="w3-bar-item w3-button">Sitios</a>
+                <a href="~/Solicitud/crearSolicitud" onclick="w3_close()" class="w3-bar-item w3-button">Registrarse</a>
+                <a href="~/Login/Index" onclick="w3_close()" class="w3-bar-item w3-button">Iniciar Sesión</a>
+
+            </nav>
+        </div>
+    </div>
+
+
+    <script>
+        var mySidebar = document.getElementById("mySidebar");
+
+        function w3_open() {
+            if (mySidebar.style.display === 'block') {
+                mySidebar.style.display = 'none';
+            } else {
+                mySidebar.style.display = 'block';
+            }
+        }
+
+        // Close the sidebar with the close button
+        function w3_close() {
+            mySidebar.style.display = "none";
+        }
+    </script>
+
+    <div>
+        @RenderBody()
+
+
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <footer style="text-align:center">
+        <p>&copy; @DateTime.Now.Year - El Camino de Costa Rica</p>
+    </footer>
+</body>
+</html>
+

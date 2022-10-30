@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+
+@model camino.Models.ServicioModel
+@{
+    ViewBag.Title = "agregarServicio";
+}
+
+<html>
+<head>
+
+    <link href="~/Styles/Table.css" rel="stylesheet" />
+    <link href="~/Styles/form.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="banner-area">
+        <h2 style="color:white;">Editar Evaluación</h2>
+    </div>
+
+    @if (ViewBag.Message != null)
+    {
+        if (ViewBag.ExitoAlCrear)
+        {
+            <div class="alert-success">
+                <h3> @ViewBag.Message </h3>
+            </div>
+        }
+        else
+        {
+            <div class="alert-danger">
+                <h3> @ViewBag.Message </h3>
+            </div>
+        }
+    }
+            <div class="container" style="margin-top:50px;">
+                @using (Html.BeginForm("editarServicio", "Servicio", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {@Html.AntiForgeryToken()
+
+                <form>
+                    <div>
+                        @Html.LabelFor(model => model.Categoria) @Html.TextBoxFor(model => model.Categoria, new { @placeholder = "Categoría", @class = "inputFields" })
+                        @Html.ValidationMessageFor(model => model.Categoria, "", new { @class = "text-danger" })
+                    </div>
+                    <div>
+                        @Html.LabelFor(model => model.Descripcion) @Html.TextBoxFor(model => model.Descripcion, new { @placeholder = "Descripción", @class = "inputFields" })
+                        @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                    </div>
+                    <div>
+                        @Html.Hidden("ServicioId", (object)ViewBag.ServicioId)
+                    </div>
+                    <div>
+                        @Html.Hidden("TrayectoId", (object)ViewBag.TrayectoId)
+                    </div>
+                    <div class="center">
+
+                        <div style="text-align:center; margin-top:15px">
+                            <input type="submit" value="Agregar" class="cta">
+                        </div>
+                        @* <input type="button" class="button" align="center" onclick="location.href='/Servicio/consultarServicios?trayectoId=@ViewBag.TrayectoId';" value="Regresar" />*@
+                    </div>
+                </form>
+            }
+            </div>
+</body>
+</html>

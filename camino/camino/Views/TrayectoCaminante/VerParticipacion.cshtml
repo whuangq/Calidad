@@ -1,0 +1,42 @@
+﻿<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>VerParticipacion</title>
+    <link href="~/Styles/Table.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="banner-area" style="margin-bottom:35px;">
+        <h2 style="color:white; ">Mis trayectos </h2>
+    </div>
+    <div>
+        
+        <div class="container">
+            <h1>@ViewBag.mensaje</h1>
+            <ul class="responsive-table">
+                <li class="table-header">
+                    <div class="col col-1">Trayecto</div>
+                    <div class="col col-2">Email del usuario</div>
+
+
+                </li>
+                @foreach (var participante in ViewBag.participantes)
+                {
+                    <li class="table-row">
+
+                        @foreach (var trayecto in ViewBag.trayectos)
+                        {
+                            if (participante.TrayectoTrayectoID == trayecto.TrayectoID)
+                            {
+                                <div class="col col-1">@trayecto.Descripcion</div>
+                            }
+
+                        }
+                        <div class="col col-1">@participante.CaminanteCorreo</div>
+                    </li>
+                }
+
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Listado de Servicios</title>
+    <link href="~/Styles/Gallery.css" rel="stylesheet" />
+    <link href="~/Styles/Table.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="banner-area" style="margin-bottom:35px;">
+        <h2 style="color:white; ">Sitios de Interés </h2>
+    </div>
+
+   
+    <br />
+
+    <div class="container">
+        <h1> </h1>
+        <ul class="responsive-table">
+            <li class="table-header">
+                <div class="col col-1">Categoria</div>
+                <div class="col col-2">Descripción</div>
+                <div class="col col-3">Editar</div>
+
+
+            </li>
+            @foreach (var servicio in ViewBag.Servicios)
+            {
+                <li class="table-row">
+                    <div class="col col-1" data-label="Categoria">@servicio.Categoria</div>
+                    <div class="col col-2" data-label="Descripcion">@servicio.Descripcion</div>
+                    <div class="col col-3" style="text-align:end" data-label="Editar">
+                        @Html.ActionLink("Editar", "editarServicio", "Servicio", new { ServicioId = servicio.ServicioId, TrayectoId = ViewBag.TrayectoId }, new { @class = "cta"})
+                    </div>
+                </li>
+            }
+
+        </ul>
+    </div>
+    <div style="margin-top:25px; text-align:center;">
+        @Html.ActionLink("Agregar servicio", "agregarServicio", "Servicio", new { trayectoId = ViewBag.TrayectoId }, new { @class = "cta" })
+    </div>
+
+</body>
+</html>

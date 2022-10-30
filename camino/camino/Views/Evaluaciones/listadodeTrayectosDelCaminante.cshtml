@@ -1,0 +1,61 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Usuarios Registrados</title>
+    <link href="~/Styles/Table.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="banner-area">
+        <h2 style="color:white;">Listado de trayectos </h2>
+    </div>
+    <div class="container">
+        <h1> </h1>
+        <ul class="responsive-table">
+            <li class="table-header">
+                <div class="col col-1">ID</div>
+                <div class="col col-2">Descripcion</div>
+                <div class="col col-3">Evaluacion de Servicio</div>
+            </li>
+            @{ 
+                string Role = string.Empty;
+                HttpCookie reqCookies = Request.Cookies["userInfo"];
+
+            }
+            
+            @foreach (var trayecto in ViewBag.Evaluaciones)
+            {
+
+                <li class="table-row">
+                    <div class="col col-1" data-label="Trayecto">@trayecto.TrayectoID</div>
+                    <div class="col col-2" data-label="Descripcion">@trayecto.Descripcion</div>
+                    <div class="col col-4" data-label="Evaluar">
+                        @if (reqCookies != null)
+                        {
+                            Role = reqCookies["Role"].ToString();
+
+                            if (Role.Equals("Caminante"))
+                            {
+                                @Html.ActionLink("Evaluar", "listadodeEvaluacionesCaminante", "Evaluaciones", new { trayectoId = trayecto.TrayectoID }, new { @class = "cta" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Evaluar", "listadodeEvaluaciones", "Evaluaciones", new { trayectoId = trayecto.TrayectoID }, new { @class = "cta" })
+                            }
+                        }
+
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+
+</body>
+</html>
+

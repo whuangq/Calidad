@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+
+@model camino.Models.EvaluacionesModel
+@{
+    ViewBag.Title = "Formulario para crear una evaluacion";
+
+}
+
+<html>
+<head>
+    
+    <link href="~/Styles/form.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <div class="banner-area">
+        <h2 style="color:white;">Crear Evaluación</h2>
+    </div>
+
+    @if (ViewBag.Message != null)
+    {
+        if (ViewBag.ExitoAlCrear)
+        {
+            <div class="alert-success">
+                <h3> @ViewBag.Message </h3>
+            </div>
+            <input type="button" class="cta center" align="center" onclick="location.href='/Evaluaciones/listadodeEvaluaciones';" value="Regresar" />
+        }
+        else
+        {
+            <div class="alert-danger">
+                <h3> @ViewBag.Message </h3>
+            </div>
+            <input type="button" class="cta center"  onclick="location.href='/Evaluaciones/listadodeEvaluaciones';" value="Regresar" />
+        }
+    }
+    else
+    {
+
+        <div class="container" style="margin-top:50px;">
+            @using (Html.BeginForm("crearEvaluacion", "Evaluaciones", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {@Html.AntiForgeryToken()
+
+            <div >
+                <div >
+                    @Html.Hidden("servicioId", (object)ViewBag.servicioId)
+                    <label for="name">
+                        Agregue una descripción a la encuesta
+                    </label>
+                    @Html.TextBoxFor(model => model.Comentario, new { @class = "inputFields" })
+                    @Html.ValidationMessageFor(model => model.Comentario, "", new { @class = "text-danger" })
+                </div>
+                <div style="text-align:center">
+                    <input type="submit" value="Crear" class="cta">
+                </div>
+            </div>
+            }
+        </div>
+    }
+</body>
+@section Scripts { @Scripts.Render("~/bundles/jqueryval") }
+</html>

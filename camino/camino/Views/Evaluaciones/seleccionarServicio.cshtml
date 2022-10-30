@@ -1,0 +1,47 @@
+﻿@{
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Styles/Table.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Seleccione un servicio</title>
+    <link href="~/Styles/Table.css" rel="stylesheet" />
+</head>
+
+
+<body>
+    <div class="banner-area">
+        <h2 style="color:white;">Seleccione un servicio </h2>
+    </div>
+
+    <div class="container">
+        <h1> </h1>
+        <ul class="responsive-table">
+            <li class="table-header">
+                <div class="col col-1">ID</div>
+                <div class="col col-2">Categoria</div>
+                <div class="col col-1">Descripción</div>
+                <div class="col col-4">Seleccionar</div>
+            </li>
+            @foreach (var servicio in ViewBag.Servicios)
+            {
+                <li class="table-row">
+                    <div class="col col-1">@servicio.ServicioId</div>
+                    <div class="col col-2">@servicio.Categoria</div>
+                    <div class="col col-1">@servicio.Descripcion</div>
+                    <div class="col col-3">
+                        @Html.ActionLink("Seleccionar", "crearEvaluacion", "Evaluaciones", new { servicioId = servicio.ServicioId }, new { @class = "cta" })
+                    </div>
+                </li>
+
+            }
+        </ul>
+        <input type="button" class="cta" align="center" onclick="location.href='/Evaluaciones/listadodeEvaluaciones';" value="Regresar" />
+    </div>
+
+
+</body>
+</html>

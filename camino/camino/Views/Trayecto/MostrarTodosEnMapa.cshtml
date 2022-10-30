@@ -1,0 +1,201 @@
+﻿
+@{
+    ViewBag.Title = "Trayectos";
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Directions Service</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link href="~/Styles/header.css" rel="stylesheet" />
+    <link href="~/Styles/Table.css" rel="stylesheet" />
+</head>
+<body onload="DisplayGoogleMap()">
+
+    <div class="banner-area">
+        <h2 style="color:white;"> Trayectos</h2>
+    </div>
+
+    <div id="floating-panel">
+
+        <br />
+        <b>Start: </b>
+
+
+        <select id="start">
+
+            @for (int i = 0; i < ViewBag.serializados.Count; i++)
+            {
+                <option value="@ViewBag.serializados[i]">@ViewBag.serializados[i]</option>
+            }
+
+
+
+        </select>
+        <b>End: </b>
+        <select id="end">
+            @for (int i = 0; i < ViewBag.serializados.Count; i++)
+            {
+                <option value="@ViewBag.serializados[i]">@ViewBag.serializados[i]</option>
+
+            }
+        </select>
+        <br />
+    </div>
+    <div id="map" style="width:100%;height:400px;"></div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCo0TTCtLBIi_vDz-W1j7eeXCKVnjCmvtI&callback=DisplayGoogleMap&v=weekly"
+            defer></script>
+    @{
+        string Role = string.Empty;
+        HttpCookie reqCookies = Request.Cookies["userInfo"];
+
+    }
+
+
+
+    <hr />
+    <div>
+        <ul class="responsive-table" style="text-align: center;">
+            <li class="table-header">
+                <div class="col col-1">Trayecto</div>
+                <div class="col col-1">ID</div>
+                <div class="col col-1">Inicio</div>
+                <div class="col col-1">Final</div>
+                <div class="col col-1">Máxima Altimetría</div>
+                <div class="col col-1">Mínima Altimetría</div>
+                <div class="col col-1">Distancia</div>
+                <div class="col col-1">Descripción</div>
+                <div class="col col-1"></div>
+                @if (reqCookies != null)
+                {
+                    Role = reqCookies["Role"].ToString();
+
+                    if (!Role.Equals("Caminante"))
+                    {
+                        <div class="col col-1"></div>
+                    }
+                }
+            </li>
+
+            @foreach (var trayecto in ViewBag.Trayectos)
+            {
+                <li class="table-row">
+                    <div class="col col-1" data-label="Ver Trayecto">@Html.ActionLink("Ver", "verTrayecto", "Trayecto", new { trayectoId = trayecto.TrayectoID }, new { @class = "cta" })</div>
+                    <div class="col col-1" data-label="ID">@trayecto.TrayectoID</div>
+                    <div class="col col-1" data-label="Inicio">@trayecto.Inicio</div>
+                    <div class="col col-1" data-label="Final">@trayecto.Final</div>
+                    <div class="col col-1" data-label="AltimetríaMax">@trayecto.AltimetriaMax</div>
+                    <div class="col col-1" data-label="AltimetríaMin">@trayecto.AltimetriaMin</div>
+                    <div class="col col-1" data-label="Distancia">@trayecto.Distancia</div>
+                    <div class="col col-1" data-label="Descripción">@trayecto.Descripcion</div>
+                    <div class="col col-1" data-label="Servicios">@Html.ActionLink("Servicios", "consultarServicios", "Servicio", new { trayectoId = trayecto.TrayectoID }, new { @class = "cta" })</div>
+                    @if (reqCookies != null)
+                    {
+                        Role = reqCookies["Role"].ToString();
+
+                        if (!Role.Equals("Caminante"))
+                        {
+                            <div class="col col-1" data-label="Eliminar Trayecto">@Html.ActionLink("Eliminar", "eliminarTrayecto", "Trayecto", new { TrayectoID = trayecto.TrayectoID }, new { @class = "cta" })</div>
+                        }
+                    }
+
+                </li>
+            }
+        </ul>
+    </div>
+
+    @if (reqCookies != null)
+    {
+        Role = reqCookies["Role"].ToString();
+
+        if (Role.Equals("Caminante"))
+        {
+
+        }
+        else
+        {
+            <div style="text-align:center; padding-top:20px">
+                @Html.ActionLink("Usuarios Enlistados", "EnlistadosEnTrayectos", "TrayectoCaminante", null, new { @class = "cta" })
+            </div>
+            <div style="text-align:center; padding-top:35px">
+                @Html.ActionLink("Crear Trayecto", "CrearTrayecto", "Trayecto", null, new { @class = "cta" })
+            </div>
+        }
+    }
+</body>
+</html>
+
+
+
+<script type="text/javascript">
+    function DisplayGoogleMap() {
+
+        const directionsService = new google.maps.DirectionsService();
+        const directionsRenderer = new google.maps.DirectionsRenderer();
+
+        //Create Options or set different Characteristics of Google Map
+        var mapOptions = {
+            center: { lat: 9.93790062730941, lng: -84.05204417786392 }, //ecci
+            zoom: 7,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        //Display the Google map in the div control with the defined Options
+        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+        directionsRenderer.setMap(map);
+        const onChangeHandler = function () {
+            calculateAndDisplayRoute(directionsService, directionsRenderer);
+        };
+
+        document.getElementById("start").addEventListener("change", onChangeHandler);
+        document.getElementById("end").addEventListener("change", onChangeHandler);
+        //document.getElementById("9.683713, -84.040846").addEventListener("change", onChangeHandler);
+        flightPath.setMap(map);
+
+        document.getElementById("map").addListener('click', function (e) {
+            console.log(e);
+            addMarker(e.latLng);
+        });
+
+    }
+
+    function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+        directionsService
+            .route({
+                origin: {
+                    query: document.getElementById("start").value,
+                    //query: "9.431547, -84.164933",
+                },
+                destination: {
+                    query: document.getElementById("end").value,
+                    //query: "9.683713, -84.040846",
+                },
+                travelMode: google.maps.TravelMode.WALKING,
+            })
+            .then((response) => {
+                directionsRenderer.setDirections(response);
+            })
+            .catch((e) => window.alert("Directions request failed due to " + status));
+    }
+    let markersArray = [];
+
+    function addMarker(latLng) {
+        let marker = new google.maps.Marker({
+            map: map,
+            position: latLng,
+            draggable: true
+        });
+
+        markersArray.push(marker);
+    }
+
+
+</script>
+
+<style>
+    #map {
+        height: 100%;
+    }
+</style>

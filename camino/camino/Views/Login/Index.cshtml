@@ -1,0 +1,64 @@
+﻿
+<!DOCTYPE html>
+@model camino.Models.Login
+
+@{
+    ViewBag.Title = "Ingrese a su cuenta";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/Styles/logRegForm.css" />
+    <style>
+        
+        
+    </style>
+</head>
+<body>
+   
+
+    <div class="signupSection" >
+        <div class="info" id="hide">
+            <h2>Ingresá para empezar la aventura</h2>
+            <div style="padding-top:15px; padding-bottom:15px;">
+                <img src="~/Images/ElcaminoCR-removebg-preview.png" alt="Logo colibrí" />
+            </div>
+            <p>Del Atlántico al Pacífico</p>
+        </div>
+        @using (Html.BeginForm("Authenticate", "Login", FormMethod.Post, new { enctype = "multipart/form-data", @class = "signupForm" }))
+        {@Html.AntiForgeryToken()
+        <form >
+
+            <h2 style="font-size: 50px;">Iniciar Sesión</h2>
+
+            <ul class="noBullet">
+                <li>
+                    @Html.TextBoxFor(model => model.Credential.Email, new { @type = "email", @placeholder = "Correo electronico", required = "required", @class = "inputFields" })
+                    @Html.ValidationMessageFor(model => model.Credential.Email, "", new { @class = "text-danger" })
+                </li>
+                <li>
+                    @Html.TextBoxFor(model => model.Credential.Password, new { @type = "password", placeholder = "contraseña", required = "required", @class = "inputFields" })
+                    @Html.ValidationMessageFor(model => model.Credential.Password, "", new { @class = "text-danger" })
+                </li>           
+
+                <li id="center-btn">
+                    <input type="submit" id="join-btn" name="join"  value="Ingresar">
+                </li>
+            </ul>
+
+            <div style="padding-top: 20px;">
+                <span>Aún no tienes una cuenta? <a href="~/Solicitud/crearSolicitud" style="font-weight:bold">Registrarse</a></span> 
+            </div>
+
+        </form>
+        }
+    </div>
+
+    <div>
+
+    </div>
+    
+</body>
+</html>

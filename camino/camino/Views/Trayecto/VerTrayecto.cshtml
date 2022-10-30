@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = "Trayecto " + ViewBag.Trayecto.TrayectoID;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Directions Service</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link href="~/Styles/header.css" rel="stylesheet" />
+    <link href="~/Styles/Table.css" rel="stylesheet" />
+    @{
+        string Role = string.Empty;
+        HttpCookie reqCookies = Request.Cookies["userInfo"];
+
+    }
+</head>
+<body onload="DisplayGoogleMap()">
+    <div class="banner-area">
+        <h2 style="color:white;">Trayecto @ViewBag.Trayecto.TrayectoID</h2>
+    </div>
+    <br />
+    <div id="map" style="width:50%;height:500px;float:right;"></div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCo0TTCtLBIi_vDz-W1j7eeXCKVnjCmvtI&callback=DisplayGooglleMap&v=weekly"
+            defer></script>
+    <h3 style="margin-left:10px">Trayecto @ViewBag.Trayecto.TrayectoID</h3>
+
+    <div id="floating-panel" style="margin-left:10px">
+        <b>Sitio de Inicio: </b>
+        <select id="start">
+            <option value="@ViewBag.Sitios[0]">@ViewBag.Sitios[0]</option>
+        </select>
+        <b>Sitio Final: </b>
+        <select id="end">
+            <option value="@ViewBag.Sitios[1]">@ViewBag.Sitios[1]</option>
+        </select>
+    </div>
+
+    <h3 style="margin-left:5px">Altimetría Máxima: </h3> <p style="margin-left:10px">@ViewBag.Trayecto.AltimetriaMax</p>
+    <h3 style="margin-left:5px">Altimetría Mínima: </h3> <p style="margin-left:10px">@ViewBag.Trayecto.AltimetriaMin</p>
+    <h3 style="margin-left:5px">Distancia: </h3> <p style="margin-left:10px">@ViewBag.Trayecto.Distancia</p>
+    <h3 style="margin-left:5px">Descripción: </h3> <p style="margin-left:10px">@ViewBag.Trayecto.Descripcion</p>
+
+    @if (reqCookies != null)
+    {
+        Role = reqCookies["Role"].ToString();
+
+        if (!Role.Equals("Caminante"))
+        {
+            <br />
+            <div>@Html.ActionLink("Editar Trayecto", "editarTrayecto", "Trayecto", new { TrayectoID = ViewBag.TrayectoID }, new { @class = "cta" })</div>
+        }
+    }
+</body>
+</html>
+
+
+<script type="text/javascript">
+    function DisplayGoogleMap() {
+
+        const directionsService = new google.maps.DirectionsService();
+        const directionsRenderer = new google.maps.DirectionsRenderer();
+
+        //Create Options or set different Characteristics of Google Map
+        var mapOptions = {
+            center: { lat: 9.93790062730941, lng: -84.05204417786392 }, //ecci
+            zoom: 7,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        //Display the Google map in the div control with the defined Options
+        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        calculateAndDisplayRoute(directionsService, directionsRenderer);
+        directionsRenderer.setMap(map);
+    }
+
+    function calculateAndDisplayRoute(directionsService, directionsRenderer) { // ocupo multiples directionsRenderer, uno para cada trayecto
+        directionsService
+            .route({
+                origin: {
+                    query: document.getElementById("start").value,
+                    //query: "9.431547, -84.164933",
+                },
+                destination: {
+                    query: document.getElementById("end").value,
+                    //query: "9.683713, -84.040846",
+                },
+                travelMode: google.maps.TravelMode.WALKING,
+            })
+            .then((response) => {
+                directionsRenderer.setDirections(response);
+            })
+            .catch((e) => window.alert("Directions request failed due to " + status));
+    }
+
+    function calculateAndDisplayRoutes(directionsService, directionsRendererArray, startings, endings) { // ocupo multiples directionsRenderer, uno para cada trayecto
+        for (let direction = 0; direction < directionsRendererArray.length; direction++) {
+            directionsService
+                .route({
+                    origin: {
+                        query: startings[direction].value,
+                        //query: "9.431547, -84.164933",
+                    },
+                    destination: {
+                        query: endings[direction].value,
+                        //query: "9.683713, -84.040846",
+                    },
+                    travelMode: google.maps.TravelMode.WALKING,
+                })
+                .then((response) => {
+                    directionsRendererArray[direction].setDirections(response);
+                })
+                .catch((e) => window.alert("Directions request failed due to " + status));
+        }
+    }
+</script>
+
+<style>
+    #map {
+        height: 100%;
+        margin-right: 10px;
+    }
+</style>

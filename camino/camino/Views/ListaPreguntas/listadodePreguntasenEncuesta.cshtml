@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+
+@model camino.Models.ListaPreguntasModel
+
+@{
+    ViewBag.Title = "Preguntas de la encuesta seleccionada";
+    HttpCookie reqCookies = Request.Cookies["userInfo"];
+}
+
+<html>
+<head>
+
+    <link href="~/Styles/Table.css" rel="stylesheet" />
+    <link href="~/Styles/form.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <div class="banner-area">
+        <h2 style="color:white;">Preguntas</h2>
+    </div>
+    @if (ViewBag.Message != null)
+    {
+        if (ViewBag.ExitoAlCrear)
+        {
+            <div class="alert-success">
+                <h3> @ViewBag.Message </h3>
+            </div>
+            <input type="button" class="cta center" onclick="location.href='/Evaluaciones/listadodeTrayectosDelCaminante';" value="Regresar" />
+        }
+        else
+        {
+            <div class="alert-danger">
+                <h3> @ViewBag.Message </h3>
+            </div>
+            <input type="button" class="cta center" onclick="location.href='/Evaluaciones/listadodeTrayectosDelCaminante';" value="Regresar" />
+        }
+
+    }else{
+
+        using (Html.BeginForm("listadodePreguntasenEncuesta", "ListaPreguntas", FormMethod.Post, new { enctype = "multipart/form-data", @class="container", @style= "margin-top:50px;" }))
+        {@Html.AntiForgeryToken()
+                for (var i = 0; i < Model.Preguntas.Count(); i++)
+                {
+                <div>
+                    @Html.HiddenFor(m => m.Preguntas[i].id)
+                    @Html.HiddenFor(m => m.Preguntas[i].correo, new { @Value = reqCookies["Correo"].ToString() })
+                    <div>
+                        <h3>@(i + 1). @Model.Preguntas[i].texto</h3>
+                        @Html.DropDownListFor(m => m.Preguntas[i].calificacion, new List<SelectListItem> {
+                                    new SelectListItem { Value = "0.1" , Text = "1" },
+                                    new SelectListItem { Value = "0.2" , Text = "2" },
+                                    new SelectListItem { Value = "0.3" , Text = "3" },
+                                    new SelectListItem { Value = "0.4" , Text = "4" },
+                                    new SelectListItem { Value = "0.5" , Text = "5" }
+                                },
+                                                     new { @class = "myselect" })
+
+                        @Html.ValidationMessageFor(m => m.Preguntas[i].calificacion, "", new { @class = "text-danger" })
+                    </div>
+                    <div>
+                        <h3>Comentarios adicionales</h3>
+                        @Html.TextBoxFor(m => m.Preguntas[i].comentario, new { @class = "inputFields" })
+                        @Html.ValidationMessageFor(m => m.Preguntas[i].comentario, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                }
+                <div class="center">
+                    <input type="submit" value="Responder" class="cta">
+                </div>
+                }
+            
+    }
+</body>
+</html>

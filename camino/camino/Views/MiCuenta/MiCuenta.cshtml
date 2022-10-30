@@ -1,0 +1,98 @@
+﻿    <html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="~/Styles/logRegForm.css" />
+        @{
+            string Role = string.Empty;
+            HttpCookie reqCookies = Request.Cookies["userInfo"];
+
+        }
+    </head>
+    <body>
+        <div class="signupSection">
+            <div class="info" id="hide">
+                <h2>Caminando</h2>
+                <div style="padding-top:15px; padding-bottom:15px;">
+                    <img src="~/Images/ElcaminoCR-removebg-preview.png" alt="Logo colibrí" />
+                </div>
+                <p>Del Atlántico al Pacífico</p>
+            </div>
+            <div class="signupForm">
+                
+                    @if (reqCookies != null)
+                    {
+                        Role = reqCookies["Role"].ToString();
+
+                        if (Role.Equals("Caminante"))
+                        {
+                            <h2 style="font-size: 50px;">Caminante</h2>
+                        }
+                        else
+                        {
+                            <h2 style="font-size: 50px;">Administrador</h2>
+                        }
+                    }
+
+                            <ul class="noBullet" style="margin-top:30px;">
+                                <li>
+                                    <div class="infocuenta1">
+                                        Nombre:
+                                    </div>
+
+                                    <div class="infocuenta2">
+                                        @ViewBag.MiCuenta[0].Nombre @ViewBag.MiCuenta[0].Apellido
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="infocuenta1">
+                                        Sexo:
+                                    </div>
+
+                                    <div class="infocuenta2">
+                                        @ViewBag.MiCuenta[0].Sexo
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="infocuenta1">
+                                        Edad:
+                                    </div>
+
+                                    <div class="infocuenta2">
+                                        @ViewBag.MiCuenta[0].Edad
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="infocuenta1">
+                                        Teléfono:
+                                    </div>
+
+                                    <div class="infocuenta2">
+                                        @ViewBag.MiCuenta[0].Telefono
+                                    </div>
+                                </li>
+                            </ul>
+                   
+
+                    @*<ul class="noBullet">
+                <li>
+                    @Html.TextBoxFor(model => model.Credential.Email, new { @type = "email", @placeholder = "Correo electronico", required = "required", @class = "inputFields" })
+                    @Html.ValidationMessageFor(model => model.Credential.Email, "", new { @class = "text-danger" })
+                </li>
+                <li>
+                    @Html.TextBoxFor(model => model.Credential.Password, new { @type = "password", placeholder = "contraseña", required = "required", @class = "inputFields" })
+                    @Html.ValidationMessageFor(model => model.Credential.Password, "", new { @class = "text-danger" })
+                </li>
+
+                <li id="center-btn">
+                    <input type="submit" id="join-btn" name="join" value="Ingresar">
+                </li>
+            </ul>*@
+
+                    
+
+            </div>
+        </div>
+    </body>
+    </html>
+  
+

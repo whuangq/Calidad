@@ -1,0 +1,93 @@
+﻿
+<!DOCTYPE html>
+
+@model camino.Models.Solicitud
+@{
+    ViewBag.Title = "Formulario para solicitud de creacion de usuario";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/Styles/logRegForm.css" />
+   
+</head>
+<body>
+    @if (ViewBag.Message != null)
+    {
+        if (ViewBag.ExitoAlCrear)
+        {
+            <div class="alert-success">
+                <h3> @ViewBag.Message </h3>
+            </div>
+        }
+        else
+        {
+            <div class="alert-danger">
+                <h3> @ViewBag.Message </h3>
+            </div>
+        }
+    }
+
+    <div class="signupSection" style="height:630px;">
+        <div class="info" style="padding-top:95px;" id="hide">
+            <h2>Ingresá para empezar la aventura</h2>
+            <div style="padding-top:15px; padding-bottom:15px;">
+                <img src="~/Images/ElcaminoCR-removebg-preview.png" />
+            </div>
+            <p>Del Atlántico al Pacífico</p>
+        </div>
+        @using (Html.BeginForm("crearSolicitud", "Solicitud", FormMethod.Post, new { enctype = "multipart/form-data", @class = "signupForm" }))
+        {@Html.AntiForgeryToken()
+        <form>
+
+            <h2 style="font-size: 50px;">Registrarse</h2>
+
+            <ul class="noBullet">
+                <li>                 
+                    @Html.TextBoxFor(model => model.email, new { @placeholder = "Correo electronico", @class = "inputFields" })
+                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                </li>
+                <li>
+                    @Html.TextBoxFor(model => model.nombre, new { @placeholder = "Nombre", @class = "inputFields" })
+                    @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+                </li>
+                <li>
+                    @Html.TextBoxFor(model => model.apellido, new { @placeholder = "Apellido", @class = "inputFields" })
+                    @Html.ValidationMessageFor(model => model.apellido, "", new { @class = "text-danger" })
+                </li>
+
+                <li>
+                   
+                    @Html.TextBoxFor(model => model.edad, new { @placeholder = "Edad", @class = "inputFields" })
+                    @Html.ValidationMessageFor(model => model.edad, "", new { @class = "text-danger" })
+                </li>
+                <li>
+
+                    @Html.Label("Masculino:", new { @style = "padding-right:10px;" })@Html.RadioButtonFor(model => model.genero, "M")
+                    @Html.Label("Femenino:", new {@style="padding-right:10px;" })@Html.RadioButtonFor(model => model.genero, "F")
+                    @Html.ValidationMessageFor(model => model.genero, "", new { @class = "text-danger" })
+                </li>
+                <li>
+                    @Html.TextBoxFor(model => model.numeroTelefonico, new { @placeholder = "Numero Telefonico", @class = "inputFields" })
+                    @Html.ValidationMessageFor(model => model.numeroTelefonico, "", new { @class = "text-danger" })
+                </li>
+
+
+
+                <li id="center-btn">
+                    <input type="submit" id="join-btn" name="join" alt="Join" value="Registrarse">
+                </li>
+            </ul>
+
+            <div style="padding-top: 20px;">
+                <span>Ya tienes una cuenta? <a href="~/Login/Index" style="font-weight:bold">Iniciar Sesión</a></span>
+            </div>
+
+        </form>
+    }
+    </div>
+    }
+</body>
+</html>
+

@@ -1,0 +1,45 @@
+﻿@{
+    // Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Styles/Table.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Calificaciones de la encuesta</title>
+    <link href="~/Styles/Table.css" rel="stylesheet" />
+</head>
+
+
+<body>
+    <div class="banner-area">
+        <h2 style="color:white;">Calificaciones de la encuesta </h2>
+    </div>
+
+    <div class="container">
+        <h1> </h1>
+        <ul class="responsive-table">
+            <li class="table-header">
+                <div class="col col-3">Pregunta</div>
+                <div class="col col-2">Calificación</div>
+                <div class="col col-3">Respuestas</div>
+            </li>
+            @foreach (var pregunta in ViewBag.Preguntas)
+            {
+                <li class="table-row">
+                    <div class="col col-3">@pregunta.texto</div>
+                    <div class="col col-2">@pregunta.calificacion</div>
+                    <div class="col col-3">
+                        @Html.ActionLink("Revisar", "listadodeRespuestas", "Pregunta", new { preguntaId = pregunta.id}, new { @class = "cta" })
+                    </div>
+                </li>
+
+            }
+        </ul>
+        <input type="button" class="cta" onclick="location.href='/Evaluaciones/listadodeEvaluaciones'" value="Regresar" />
+    </div>
+
+
+</body>
+</html>

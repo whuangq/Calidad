@@ -1,0 +1,76 @@
+﻿@model camino.Models.TrayectoViewModel
+@{
+    ViewBag.Title = "Completar Información";
+}
+
+<h1>@ViewBag.Title</h1>
+
+
+@using (Html.BeginForm("Crear", "TrayectoViewModel", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <label hidden> Latitud de Inicio</label>
+    @Html.HiddenFor(model => model.LatitudInicial, new { id = "latInicio", @placeholder = "Latitud Inicial", @class = "inputFields" })
+    <label hidden> Longitud de Inicio</label>
+    @Html.HiddenFor(model => model.LongitudInicial, new { id = "lngInicio", @placeholder = "Longitud Inicial", @class = "inputFields" })
+
+
+
+    <label hidden> Latitud Final</label>
+    @Html.HiddenFor(model => model.LatitudFinal, new { id = "latFinal", @placeholder = "Latitud Final", @class = "inputFields" })
+
+
+    <label hidden> Longitud Final</label>
+    @Html.HiddenFor(model => model.LongitudFinal, new { id = "lngFinal", @placeholder = "Longitud Final", @class = "inputFields" })
+
+
+    <label hidden>Distancia total</label>
+    @Html.HiddenFor(model => model.Distancia, new { id = "dist", @placeholder = "km", @class = "inputFields" })
+
+
+
+    <label hidden> Altimetría mínima</label>
+    @Html.HiddenFor(model => model.Trayecto.AltimetriaMin, new { id = "lowAlt", @class = "inputFields" })
+    <label hidden> Altimetría máxima</label>
+    @Html.HiddenFor(model => model.Trayecto.AltimetriaMax, new { id = "highAlt", @class = "inputFields" })
+
+
+    <label hidden>Descripción</label>
+    @Html.HiddenFor(model => model.Trayecto.Descripcion, new { id = "desc", @class = "input" })
+
+    <h3>Sitio Inicial</h3>
+    <label for="prov">Provincia:</label>
+    @Html.TextBoxFor(model => model.SitioInicio.Provincia, new { id = "prov", @class = "inputFields" })
+
+    <label for="cant">Cantón:</label>
+    @Html.TextBoxFor(model => model.SitioInicio.Canton, new { id = "cant", @class = "inputFields" })
+
+    <label for="dist">Distrito:</label>
+    @Html.TextBoxFor(model => model.SitioInicio.Distrito, new { id = "cant", @class = "inputFields" })
+    <label for="name">Nombre:</label>
+    @Html.TextBoxFor(model => model.SitioInicio.SitioNombre, new { id = "name", @class = "inputFields" })
+    <br />
+    <label for="sitioInicioDesc">Descripción del punto inicial:</label>
+    @Html.TextBoxFor(model => model.SitioInicio.Descripcion, new { id = "iDesc", @class = "inputFields" })
+
+    <br />
+    <h3>Sitio Final</h3>
+    <label for="provf">Provincia:</label>
+    @Html.TextBoxFor(model => model.SitioFin.Provincia, new { id = "provf", @class = "inputFields" })
+
+    <label for="cantf">Cantón:</label>
+    @Html.TextBoxFor(model => model.SitioFin.Canton, new { id = "cantf", @class = "inputFields" })
+
+    <label for="distf">Distrito:</label>
+    @Html.TextBoxFor(model => model.SitioFin.Distrito, new { id = "distf", @class = "inputFields" })
+    <label for="namef">Nombre:</label>
+    @Html.TextBoxFor(model => model.SitioFin.SitioNombre, new { id = "namef", @class = "inputFields" })
+    <br />
+    <label for="sitioInicioDesc">Descripción del punto final:</label>
+    @Html.TextBoxFor(model => model.SitioFin.Descripcion, new { id = "iDescf", @class = "inputFields" })
+
+    <br />
+    <input type="submit" id="sub" value="Crear" />
+
+}
+

@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+
+@{
+    ViewBag.Title = "Eliminar encuesta";
+}
+
+<html>
+<head>
+    <h1 align="center" style="color:black; font-family:Agrozza Demo;">Eliminar encuesta</h1>
+    <link href="~/Styles/Table.css" rel="stylesheet" />
+
+</head>
+<style>
+</style>
+<body>
+    @if (ViewBag.Message != null)
+    {
+        if (ViewBag.ExitoAlCrear)
+        {
+            <div class="alert-success">
+                <h3> @ViewBag.Message </h3>
+            </div>
+            <input type="button" class="cta center" align="center" onclick="location.href='/Evaluaciones/listadodeEvaluaciones';" value="Regresar" />
+        }
+        else
+        {
+            <div class="alert-danger">
+                <h3> @ViewBag.Message </h3>
+            </div>
+            <input type="button" class="cta center" align="center" onclick="location.href='/Evaluaciones/listadodeEvaluaciones';" value="Regresar" />
+        }
+    }
+</body>
+</html>

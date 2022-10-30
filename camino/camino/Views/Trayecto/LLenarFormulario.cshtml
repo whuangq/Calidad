@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "LLenarFormulario";
+}
+
+<h2>@ViewBag.p</h2>
+<fieldset>
+    <legend>Data</legend>
+    <div class="field">
+        <label for="Id">Your ID:</label>
+        <input type="text" id="Id" />
+    </div>
+    <div class="field">
+        <label for="Name">Your name:</label>
+        <input type="text" id="Name" />
+    </div>
+    <br />
+    <input type="button" id="send" value="Send" />
+</fieldset>
+<fieldset>
+    <legend>Result</legend>
+    <div id="result"></div>
+</fieldset>
+
+@section Scripts{
+    <script type="text/javascript">
+    $(function() {
+        $("#send").click(function() {
+            var id = $("#Id").val();
+            var name = $("#Name").val();
+            updateResult(id, name);
+            return false;
+        });
+        });
+
+        function updateResult(id, name) {
+            var url = "/Home/Index";
+            //$("#result").load(url);
+            window.location = url;
+        }
+    </script>
+
+}

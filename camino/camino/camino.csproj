@@ -1,0 +1,385 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\LibSassHost.Native.win-x64.1.3.3\build\LibSassHost.Native.win-x64.props" Condition="Exists('..\packages\LibSassHost.Native.win-x64.1.3.3\build\LibSassHost.Native.win-x64.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{68BFEB49-8796-4491-8C90-C545AD74F757}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>camino</RootNamespace>
+    <AssemblyName>camino</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AdvancedStringBuilder, Version=0.1.0.0, Culture=neutral, PublicKeyToken=e818a2fc08933ddb, processorArchitecture=MSIL">
+      <HintPath>..\packages\AdvancedStringBuilder.0.1.0\lib\net45\AdvancedStringBuilder.dll</HintPath>
+    </Reference>
+    <Reference Include="BundleTransformer.Core, Version=1.10.0.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
+      <HintPath>..\packages\BundleTransformer.Core.1.10.0\lib\net40\BundleTransformer.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="BundleTransformer.SassAndScss, Version=1.12.36.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
+      <HintPath>..\packages\BundleTransformer.SassAndScss.1.12.36\lib\net40\BundleTransformer.SassAndScss.dll</HintPath>
+    </Reference>
+    <Reference Include="LibSassHost, Version=1.3.3.0, Culture=neutral, PublicKeyToken=3e24e88796a38e46, processorArchitecture=MSIL">
+      <HintPath>..\packages\LibSassHost.1.3.3\lib\net45\LibSassHost.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.0.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CaminanteController.cs" />
+    <Compile Include="Controllers\CategoriaServiciosController.cs" />
+    <Compile Include="Controllers\EvaluacionesController.cs" />
+    <Compile Include="Controllers\ListaPreguntasController.cs" />
+    <Compile Include="Controllers\MiCuentaController.cs" />
+    <Compile Include="Controllers\ProveedorController.cs" />
+    <Compile Include="Controllers\SitiosInteresController.cs" />
+    <Compile Include="Controllers\CodigoController.cs" />
+    <Compile Include="Controllers\PreguntaController.cs" />
+    <Compile Include="Controllers\TrayectoCaminanteController.cs" />
+    <Compile Include="Controllers\ServicioController.cs" />
+    <Compile Include="Controllers\TrayectoController.cs" />
+    <Compile Include="Controllers\TrayectoViewModelController.cs" />
+    <Compile Include="Controllers\ViewModelController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\emailSetupController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SolicitudController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Handlers\CategoriaServiciosHandler.cs" />
+    <Compile Include="Handlers\MiCuentaHandler.cs" />
+    <Compile Include="Handlers\EvaluacionesHandler.cs" />
+    <Compile Include="Handlers\ListaPreguntasHandler.cs" />
+    <Compile Include="Handlers\LoginHandler.cs" />
+    <Compile Include="Handlers\ProveedorHandler.cs" />
+    <Compile Include="Handlers\SitioHandler.cs" />
+    <Compile Include="Handlers\SitiosInteresHandler.cs" />
+    <Compile Include="Handlers\CaminanteHandler.cs" />
+    <Compile Include="Handlers\PreguntaHandler.cs" />
+    <Compile Include="Handlers\ServicioHandler.cs" />
+    <Compile Include="Handlers\ServicioSitioHanadler.cs" />
+    <Compile Include="Handlers\SitioCaminanteHandler.cs" />
+    <Compile Include="Handlers\SolicitudHandler.cs" />
+    <Compile Include="Models\CategoriaServiciosModel.cs" />
+    <Compile Include="Models\MiCuentaModel.cs" />
+    <Compile Include="Models\EvaluacionesModel.cs" />
+    <Compile Include="Models\ListaPreguntasModel.cs" />
+    <Compile Include="Models\ProveedorModel.cs" />
+    <Compile Include="Models\ServicioModel.cs" />
+    <Compile Include="Models\SitiosInteresModel.cs" />
+    <Compile Include="Handlers\TrayectoCaminanteHandler.cs" />
+    <Compile Include="Handlers\TrayectoHandler.cs" />
+    <Compile Include="Models\CaminanteModel.cs" />
+    <Compile Include="Models\CodigoModel.cs" />
+    <Compile Include="Models\PreguntaModel.cs" />
+    <Compile Include="Models\ServicioSitioModel.cs" />
+    <Compile Include="Models\SitioCaminanteModel.cs" />
+    <Compile Include="Models\SitioModel.cs" />
+    <Compile Include="Models\TrayectoCaminanteModel.cs" />
+    <Compile Include="Models\TrayectoModel.cs" />
+    <Compile Include="Models\TrayectoViewModel.cs" />
+    <Compile Include="Models\ViewModel.cs" />
+    <Compile Include="Models\gmail.cs" />
+    <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\Solicitud.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Images\11794315.700x525.jpg" />
+    <Content Include="Images\127445631.png" />
+    <Content Include="Images\43264536.700x525.jpg" />
+    <Content Include="Images\4b.jpg" />
+    <Content Include="Images\Barbilla_hq_2013.jpg" />
+    <Content Include="Images\beach sunset.jpg" />
+    <Content Include="Images\Costa_Rica_-_Caribbean_Sea_-_Parismina_%28Eco-Tourism%29_-_03.jpg" />
+    <Content Include="Images\descarga %281%29.jpg" />
+    <Content Include="Images\descarga.jpg" />
+    <Content Include="Images\El Camino de Costa Rica Logo-1.png" />
+    <Content Include="Images\ElcaminoCR-removebg-preview.png" />
+    <Content Include="Images\Galeria-3-x-4.jpg" />
+    <Content Include="Images\Galeria-Suiza-a-Humo-4.jpg" />
+    <Content Include="Images\lago.jpg" />
+    <Content Include="Images\montana.jpg" />
+    <Content Include="Images\sunset mg.jpg" />
+    <Content Include="Images\tucan.jpg" />
+    <Content Include="Images\v2osk-1Z2niiBPg5A-unsplash.jpg" />
+    <Content Include="Images\Valle_del_Guarco,_Cartago,_Costa_Rica_04.jpg" />
+    <Content Include="Images\volcancito.jpg" />
+    <Content Include="Images\WhatsApp Image 2022-05-26 at 10.25.37 AM %281%29.jpeg" />
+    <Content Include="Images\WhatsApp Image 2022-05-26 at 10.25.37 AM %282%29.jpeg" />
+    <Content Include="Images\WhatsApp Image 2022-05-26 at 10.25.37 AM %283%29.jpeg" />
+    <Content Include="Images\WhatsApp Image 2022-05-26 at 10.25.37 AM.jpeg" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Styles\ResponsiveVerTrayecto.css" />
+    <Content Include="Styles\homeStyle.css" />
+    <Content Include="Styles\header.css" />
+    <Content Include="Styles\Pop.css" />
+    <Content Include="Styles\Gallery.css" />
+    <Content Include="Styles\Table.css" />
+    <Content Include="Styles\logRegForm.css" />
+    <Content Include="Styles\NavBar.css" />
+    <Content Include="Styles\form.css" />
+    <Content Include="Views\favicon.ico" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\emailSetup\envioCodigoSolicitud.cshtml" />
+    <Content Include="Views\emailSetup\Index.cshtml" />
+    <Content Include="Views\Solicitud\crearSolicitud.cshtml" />
+    <Content Include="Views\Solicitud\listadodeSolicitudes.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\SitiosInteres\listadodeSitios.cshtml" />
+    <Content Include="Views\SitiosInteres\crearSitio.cshtml" />
+    <Content Include="Views\Login\CambiarContraseña.cshtml" />
+    <Content Include="Views\Caminante\listadodeCaminantes.cshtml" />
+    <Content Include="Views\Caminante\agregarTrayecto.cshtml" />
+    <Content Include="Views\Trayecto\listadodeTrayectos.cshtml" />
+    <Content Include="Views\TrayectoCaminante\EnlistadosEnTrayectos.cshtml" />
+    <Content Include="Views\Servicio\consultarServicios.cshtml" />
+    <Content Include="Views\TrayectoCaminante\VerParticipacion.cshtml" />
+    <Content Include="Views\TrayectoCaminante\Index.cshtml" />
+    <Content Include="Views\ListaPreguntas\listadodePreguntasenEncuesta.cshtml" />
+    <Content Include="Views\Evaluaciones\listadodeTrayectosDelCaminante.cshtml" />
+    <Content Include="Views\Trayecto\VerTrayecto.cshtml" />
+    <Content Include="Views\_CaminanteLayout.cshtml" />
+    <Content Include="Views\_EstandardLayout.cshtml" />
+    <Content Include="Views\Pregunta\crearPregunta.cshtml" />
+    <Content Include="Views\Evaluaciones\listadodeEvaluaciones.cshtml" />
+    <Content Include="Views\Evaluaciones\crearEvaluacion.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Styles\main.scss" />
+    <Content Include="Views\Evaluaciones\eliminarEvaluacion.cshtml" />
+    <Content Include="Views\Login\LoginFailure.cshtml" />
+    <Content Include="Views\Trayecto\eliminarTrayecto.cshtml" />
+    <Content Include="Views\Trayecto\MostrarTodosEnMapa.cshtml" />
+    <Content Include="Views\TrayectoCaminante\Enlistar.cshtml" />
+    <Content Include="Views\Evaluaciones\listadodeEvaluacionesCaminante.cshtml" />
+    <Content Include="Views\Servicio\agregarServicio.cshtml" />
+    <Content Include="Views\Servicio\listadodeServicios.cshtml" />
+    <Content Include="Views\Servicio\eliminarServicio.cshtml" />
+    <Content Include="Views\Pregunta\preguntasdeEncuesta.cshtml" />
+    <Content Include="Views\MiCuenta\MiCuenta.cshtml" />
+    <Content Include="Views\Trayecto\CrearTrayecto.cshtml" />
+    <Content Include="Views\Trayecto\LLenarFormulario.cshtml" />
+    <Content Include="Views\Servicio\editarServicio.cshtml" />
+    <Content Include="Views\Evaluaciones\seleccionarServicio.cshtml" />
+    <Content Include="Views\Pregunta\editarPregunta.cshtml" />
+    <Content Include="Views\TrayectoViewModel\LlenarFormulario.cshtml" />
+    <Content Include="Views\Trayecto\editarTrayecto.cshtml" />
+    <Content Include="Views\Pregunta\seleccionarPregunta.cshtml" />
+    <Content Include="Views\Pregunta\listadodeRespuestas.cshtml" />
+    <Content Include="Views\Proveedor\ListadodeProveedores.cshtml" />
+    <Content Include="Views\Proveedor\CrearProveedor.cshtml" />
+    <Content Include="Views\Proveedor\EditarProveedor.cshtml" />
+    <Content Include="Views\Proveedor\EliminarProveedor.cshtml" />
+    <Content Include="Views\TrayectoViewModel\Crear.cshtml" />
+    <Content Include="Views\CategoriaServicios\agregarCategoriaServicios.cshtml" />
+    <Content Include="Views\CategoriaServicios\editarCategoriaServicios.cshtml" />
+    <Content Include="Views\CategoriaServicios\eliminarCategoriaServicios.cshtml" />
+    <Content Include="Views\CategoriaServicios\listadodeCategoriaServicios.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="App_Themes\Tema1\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="Views\CategoriaServicio\" />
+    <Folder Include="Views\ViewModel\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:52775/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\LibSassHost.Native.win-x64.1.3.3\build\LibSassHost.Native.win-x64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\LibSassHost.Native.win-x64.1.3.3\build\LibSassHost.Native.win-x64.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
